@@ -1,0 +1,17 @@
+name: pyjaspar
+description: >
+  pyJASPAR is a Python interface to the JASPAR transcription factor
+  binding profile database. It provides programmatic access to query,
+  retrieve, and analyze motifs from all JASPAR releases.
+upstream: https://github.com/asntech/pyjaspar
+version: "4.0.0"
+license: MIT
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: python:3.12-slim
+  labels:
+    org.opencontainers.image.title: pyjaspar
+    org.opencontainers.image.description: "pyJASPAR – Python interface to JASPAR motif database"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: MIT

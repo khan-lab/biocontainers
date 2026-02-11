@@ -1,0 +1,17 @@
+name: deeptools
+description: >
+  deepTools is a suite of tools for exploring deep-sequencing data.
+  It provides utilities for BAM/bigWig processing, quality control,
+  normalization, and visualization of next-generation sequencing data.
+upstream: https://github.com/deeptools/deepTools
+version: "3.5.6"
+license: BSD-3-Clause
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: ubuntu:22.04
+  labels:
+    org.opencontainers.image.title: deeptools
+    org.opencontainers.image.description: "deepTools – tools for exploring deep-sequencing data"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: BSD-3-Clause

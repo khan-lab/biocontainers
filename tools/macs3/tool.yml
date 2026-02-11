@@ -1,0 +1,17 @@
+name: macs3
+description: >
+  MACS3 (Model-based Analysis of ChIP-Seq, version 3) identifies
+  transcription factor binding sites and histone modification enriched
+  regions from ChIP-seq and ATAC-seq data.
+upstream: https://github.com/macs3-project/MACS
+version: "3.0.3"
+license: BSD-3-Clause
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: ubuntu:22.04
+  labels:
+    org.opencontainers.image.title: macs3
+    org.opencontainers.image.description: "MACS3 – Model-based Analysis of ChIP-Seq"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: BSD-3-Clause

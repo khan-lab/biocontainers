@@ -1,0 +1,17 @@
+name: fastqc
+description: >
+  A quality control tool for high-throughput sequencing data.
+  FastQC provides a simple way to do quality control checks on raw
+  sequence data coming from high-throughput sequencing pipelines.
+upstream: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+version: "0.12.1"
+license: GPL-2.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: ubuntu:22.04
+  labels:
+    org.opencontainers.image.title: fastqc
+    org.opencontainers.image.description: "FastQC – quality control for sequencing data"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-2.0-or-later

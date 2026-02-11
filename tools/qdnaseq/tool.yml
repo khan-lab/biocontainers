@@ -1,0 +1,17 @@
+name: qdnaseq
+description: >
+  QDNAseq performs quantitative DNA sequencing for chromosomal aberrations.
+  It implements a shallow whole-genome sequencing (sWGS) workflow for
+  copy number variation (CNV) detection using binned read counts.
+upstream: https://bioconductor.org/packages/QDNAseq
+version: "1.40.0"
+license: GPL-2.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: ubuntu:22.04
+  labels:
+    org.opencontainers.image.title: qdnaseq
+    org.opencontainers.image.description: "QDNAseq – shallow WGS CNV calling"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-2.0-or-later

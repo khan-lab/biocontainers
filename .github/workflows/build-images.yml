@@ -1,0 +1,152 @@
+name: Build and Push Container Images
+
+on:
+  push:
+    branches: [main]
+    paths: ["tools/**"]
+    tags: ["*/*"]
+  pull_request:
+    paths: ["tools/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Detect which tools changed (or which tool a tag targets)
+  # ---------------------------------------------------------------------------
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # --- Push / PR: use paths-filter to find changed tools ----------------
+      - name: Detect changed tools
+        if: github.event_name != 'push' || !startsWith(github.ref, 'refs/tags/')
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            fastqc:
+              - 'tools/fastqc/**'
+            rose:
+              - 'tools/rose/**'
+            qdnaseq:
+              - 'tools/qdnaseq/**'
+            pyjaspar:
+              - 'tools/pyjaspar/**'
+            deeptools:
+              - 'tools/deeptools/**'
+            macs3:
+              - 'tools/macs3/**'
+            tobias:
+              - 'tools/tobias/**'
+
+      # --- Build the matrix JSON --------------------------------------------
+      - name: Build matrix
+        id: set-matrix
+        run: |
+          MATRIX="[]"
+
+          # Tag event: parse tool + version from ref name
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG_NAME="${{ github.ref_name }}"        # e.g. rose/v1.2.0
+            TOOL="${TAG_NAME%%/*}"                    # rose
+            VERSION="${TAG_NAME#*/}"                  # v1.2.0
+            MATRIX=$(jq -n -c \
+              --arg tool "$TOOL" \
+              --arg version "$VERSION" \
+              '[{tool: $tool, version: $version}]')
+
+          # Push / PR / workflow_dispatch: collect changed tools
+          else
+            INCLUDE=""
+            if [[ "${{ steps.filter.outputs.fastqc }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"fastqc\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.rose }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"rose\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.qdnaseq }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"qdnaseq\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.pyjaspar }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"pyjaspar\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.deeptools }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"deeptools\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.macs3 }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"macs3\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.tobias }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"tobias\"},"
+            fi
+
+            # workflow_dispatch with no filter results: build all
+            if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},'
+            fi
+
+            if [[ -n "$INCLUDE" ]]; then
+              MATRIX="[${INCLUDE%,}]"
+            fi
+          fi
+
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "Matrix: $MATRIX"
+
+  # ---------------------------------------------------------------------------
+  # Build (and optionally push) each changed tool
+  # ---------------------------------------------------------------------------
+  build:
+    needs: detect
+    if: needs.detect.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.detect.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # --- Compute image tags ------------------------------------------------
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}
+          tags: |
+            # Main branch push → edge + sha-*
+            type=edge,branch=main
+            type=sha,prefix=sha-,format=short
+            # Tag event → semver + latest
+            type=match,pattern=.+/v(.*),group=1
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/') }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: tools/${{ matrix.tool }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
