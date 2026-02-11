@@ -4,7 +4,7 @@ description: >
   from ChIP-seq data. This container wraps the St. Jude fork of ROSE
   with all required dependencies pre-installed.
 upstream: https://github.com/stjude/ROSE
-version: "1.3.1"
+version: "2.0.1"
 license: MIT
 maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
 

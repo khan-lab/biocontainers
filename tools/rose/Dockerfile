@@ -29,7 +29,8 @@ RUN apt-get update && \
 # ---- Python dependencies ---------------------------------------------------
 RUN pip3 install --no-cache-dir \
         numpy \
-        scipy
+        scipy \
+        pyrose2==2.0.1
 
 # ---- Clone ROSE -------------------------------------------------------------
 RUN git clone --depth 1 --branch "$ROSE_REF" "$ROSE_REPO" /opt/rose
