@@ -35,13 +35,6 @@ RUN pip3 install --no-cache-dir \
 # ---- Clone ROSE -------------------------------------------------------------
 RUN git clone --depth 1 --branch "$ROSE_REF" "$ROSE_REPO" /opt/rose
 
-# ---- Wrapper scripts --------------------------------------------------------
-COPY bin/run_rose.sh /usr/local/bin/run_rose.sh
-RUN chmod +x /usr/local/bin/run_rose.sh
-
-# Convenience symlink so "rose" invokes the wrapper
-RUN ln -s /usr/local/bin/run_rose.sh /usr/local/bin/rose
-
 # ---- Non-root user ----------------------------------------------------------
 RUN groupadd -r biouser && useradd -r -g biouser -m -s /bin/bash biouser
 RUN mkdir -p /out && chown biouser:biouser /out
@@ -49,5 +42,4 @@ USER biouser
 
 WORKDIR /data
 
-ENTRYPOINT ["run_rose.sh"]
-CMD ["--help"]
+CMD ["rose2", "--help"]
