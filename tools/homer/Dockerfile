@@ -40,6 +40,7 @@ RUN apt-get update && \
         r-base-core \
         wget \
         unzip \
+        procps \
         zip \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
