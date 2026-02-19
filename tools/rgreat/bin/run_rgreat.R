@@ -21,10 +21,12 @@ option_list <- list(
                 help = "Path to input BED file with genomic regions (required)"),
     make_option("--genome",     type = "character", default = "hg38",
                 help = "Reference genome: hg19 or hg38 [default: %default]"),
-    make_option("--collection", type = "character", default = "GO:BP",
+    make_option("--collection", type = "character", default = "GO:BP, GO:MF, GO:CC",
                 help = "Gene set collection, e.g. GO:BP, GO:MF, GO:CC, MSigDB:H [default: %default]"),
     make_option("--outdir",     type = "character", default = "/out",
-                help = "Output directory [default: %default]")
+                help = "Output directory [default: %default]"),
+    make_option("--prefix",     type = "character", default = "GREAT",
+                help = "Prefix for output files [default: %default]")
 )
 
 opt <- parse_args(OptionParser(option_list = option_list))
@@ -59,13 +61,13 @@ cat(">> Extracting enrichment table ...\n")
 tb <- getEnrichmentTable(res)
 cat("   Found", nrow(tb), "terms\n")
 
-outfile <- file.path(opt$outdir, "great_enrichment.tsv")
+outfile <- file.path(opt$outdir, paste0(opt$prefix, "_great_enrichment.tsv"))
 write.table(tb, file = outfile, sep = "\t", row.names = FALSE, quote = FALSE)
 cat("   Saved to", outfile, "\n")
 
 # -- Step 4: Volcano plot ------------------------------------------------------
 cat(">> Generating volcano plot ...\n")
-plotfile <- file.path(opt$outdir, "great_volcano.pdf")
+plotfile <- file.path(opt$outdir, paste0(opt$prefix, "_great_volcano.pdf"))
 
 pdf(plotfile, width = 10, height = 7)
 tryCatch({
