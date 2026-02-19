@@ -1,6 +1,6 @@
-# biocontainers
+# CBCRG's biocontainers
 
-Khan Lab's monorepo of containerized bioinformatics tool wrappers.
+>  Computational Biology & Cancer Regulatory Genomics Lab's monorepo of containerized bioinformatics tool wrappers.
 
 Each tool lives in `tools/<tool>/` with its own Dockerfile, wrapper scripts, and metadata.
 Images are built via GitHub Actions and pushed to the GitHub Container Registry (GHCR).
@@ -16,6 +16,10 @@ Images are built via GitHub Actions and pushed to the GitHub Container Registry 
 | [deepTools](tools/deeptools/) | Tools for exploring deep-sequencing data | `ghcr.io/khan-lab/deeptools` |
 | [MACS3](tools/macs3/) | Model-based Analysis of ChIP-Seq | `ghcr.io/khan-lab/macs3` |
 | [TOBIAS](tools/tobias/) | TF occupancy prediction from ATAC-seq | `ghcr.io/khan-lab/tobias` |
+| [rGREAT](tools/rgreat/) | Genomic region enrichment analysis | `ghcr.io/khan-lab/rgreat` |
+| [HOMER](tools/homer/) | Motif discovery and ChIP-seq analysis | `ghcr.io/khan-lab/homer` |
+| [TelomereHunter](tools/telomerehunter/) | Telomere content estimation from WGS | `ghcr.io/khan-lab/telomerehunter` |
+| [TelSeq](tools/telseq/) | Telomere length estimation from WGS | `ghcr.io/khan-lab/telseq` |
 
 ## Pulling Images
 
@@ -27,6 +31,10 @@ docker pull ghcr.io/khan-lab/pyjaspar:latest
 docker pull ghcr.io/khan-lab/deeptools:latest
 docker pull ghcr.io/khan-lab/macs3:latest
 docker pull ghcr.io/khan-lab/tobias:latest
+docker pull ghcr.io/khan-lab/rgreat:latest
+docker pull ghcr.io/khan-lab/homer:latest
+docker pull ghcr.io/khan-lab/telomerehunter:latest
+docker pull ghcr.io/khan-lab/telseq:latest
 ```
 
 ## Image Tags
@@ -93,11 +101,33 @@ Pull requests build images but do **not** push them.
 │   │   ├── README.md
 │   │   ├── tool.yml
 │   │   └── bin/run_macs3.sh
-│   └── tobias/
+│   ├── tobias/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── tool.yml
+│   │   └── bin/run_tobias.sh
+│   ├── rgreat/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── tool.yml
+│   │   └── bin/
+│   │       ├── run_rgreat.R
+│   │       └── run_rgreat.sh
+│   ├── homer/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── tool.yml
+│   │   └── bin/run_homer.sh
+│   ├── telomerehunter/
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── tool.yml
+│   │   └── bin/run_telomerehunter.sh
+│   └── telseq/
 │       ├── Dockerfile
 │       ├── README.md
 │       ├── tool.yml
-│       └── bin/run_tobias.sh
+│       └── bin/run_telseq.sh
 ├── .editorconfig
 ├── .gitignore
 ├── LICENSE
@@ -109,7 +139,3 @@ Pull requests build images but do **not** push them.
 1. Create `tools/<newtool>/` with `Dockerfile`, `README.md`, `tool.yml`, and `bin/`.
 2. Add a paths-filter entry in `.github/workflows/build-images.yml` for the new tool.
 3. Follow the release process above to tag and publish.
-
-## License
-
-[MIT](LICENSE)
