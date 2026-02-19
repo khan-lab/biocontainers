@@ -1,6 +1,6 @@
 # CBCRG's biocontainers
 
->  Computational Biology & Cancer Regulatory Genomics Lab's monorepo of containerized bioinformatics tool wrappers.
+>  Computational Biology & Cancer Regulatory Genomics Lab's monorepo of containerized wrappers for bioinformatics tools.
 
 Each tool lives in `tools/<tool>/` with its own Dockerfile, wrapper scripts, and metadata.
 Images are built via GitHub Actions and pushed to the GitHub Container Registry (GHCR).
