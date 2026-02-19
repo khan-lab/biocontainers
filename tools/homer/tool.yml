@@ -1,0 +1,17 @@
+name: homer
+description: >
+  HOMER (Hypergeometric Optimization of Motif EnRichment) is a suite
+  of tools for motif discovery, ChIP-seq analysis, peak finding,
+  annotation, and next-gen sequencing data analysis.
+upstream: http://homer.ucsd.edu/homer/
+version: "5.1"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: homer
+    org.opencontainers.image.description: "HOMER – motif discovery and ChIP-seq analysis"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later
