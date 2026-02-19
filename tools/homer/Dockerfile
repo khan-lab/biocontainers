@@ -18,8 +18,13 @@ RUN apt-get update && \
 RUN mkdir -p /opt/homer && \
     cd /opt/homer && \
     wget -q http://homer.ucsd.edu/homer/configureHomer.pl && \
-    perl configureHomer.pl -install && \
-    perl configureHomer.pl -install hg38 && \
+    #perl configureHomer.pl -install && \
+    perl configureHomer.pl -install hg38
+
+RUN cd /opt/homer && \
+    perl configureHomer.pl -install hg19
+
+RUN cd /opt/homer && \
     perl configureHomer.pl -install mm10
 
 # Fix homeDir path in HomerConfig.pm to avoid double-slash issue
