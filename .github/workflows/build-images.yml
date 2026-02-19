@@ -46,6 +46,8 @@ jobs:
               - 'tools/macs3/**'
             tobias:
               - 'tools/tobias/**'
+            rgreat:
+              - 'tools/rgreat/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -87,10 +89,13 @@ jobs:
             if [[ "${{ steps.filter.outputs.tobias }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"tobias\"},"
             fi
+            if [[ "${{ steps.filter.outputs.rgreat }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"rgreat\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then

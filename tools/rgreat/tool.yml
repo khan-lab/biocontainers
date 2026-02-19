@@ -1,0 +1,17 @@
+name: rgreat
+description: >
+  rGREAT (Genomic Regions Enrichment of Annotations Tool) performs
+  functional enrichment analysis on genomic regions using the GREAT
+  algorithm, both via the web service and locally.
+upstream: https://bioconductor.org/packages/rGREAT
+version: "2.12.2"
+license: MIT
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: bioconductor/bioconductor_docker:RELEASE_3_21
+  labels:
+    org.opencontainers.image.title: rgreat
+    org.opencontainers.image.description: "rGREAT – genomic region enrichment analysis"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: MIT
