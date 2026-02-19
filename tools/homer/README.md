@@ -21,7 +21,6 @@ All HOMER commands are on `PATH` and callable directly.
 docker run --rm \
     -v /path/to/data:/data \
     -v /path/to/output:/out \
-    -v homer_data:/opt/homer/data \
     ghcr.io/khan-lab/homer:latest \
     findMotifsGenome.pl /data/peaks.bed hg38 /out -size 200 -mask
 ```
@@ -32,7 +31,6 @@ docker run --rm \
 docker run --rm \
     -v /path/to/data:/data \
     -v /path/to/output:/out \
-    -v homer_data:/opt/homer/data \
     ghcr.io/khan-lab/homer:latest \
     annotatePeaks.pl /data/peaks.bed hg38 > /out/annotated.tsv
 ```
@@ -63,25 +61,24 @@ docker run --rm \
 docker run --rm \
     -v /path/to/data:/data \
     -v /path/to/output:/out \
-    -v homer_data:/opt/homer/data \
     ghcr.io/khan-lab/homer:latest \
     findMotifsGenome.pl /data/peaks.bed hg38 /out -size 200 -mask -nomotif
 ```
 
-## Installing Genome Data
+## Pre-installed Genomes
 
-Genome data is **not** included in the image to keep it small. Install genomes
-into a persistent Docker volume:
+The image includes **hg38** and **mm10** genome data out of the box. No additional
+setup is needed for these two genomes.
+
+To install additional genomes at runtime, use a persistent Docker volume:
 
 ```bash
-# Create a named volume and install hg38
 docker run --rm \
     -v homer_data:/opt/homer/data \
     ghcr.io/khan-lab/homer:latest \
-    perl /opt/homer/configureHomer.pl -install hg38
+    perl /opt/homer/configureHomer.pl -install mm39
 
-# The volume persists across container runs
-# Use the same -v homer_data:/opt/homer/data in all subsequent commands
+# Use the same -v homer_data:/opt/homer/data in subsequent commands
 ```
 
 Available genomes include: `hg18`, `hg19`, `hg38`, `mm8`, `mm9`, `mm10`, `mm39`,
@@ -108,7 +105,7 @@ Available genomes include: `hg18`, `hg19`, `hg38`, `mm8`, `mm9`, `mm10`, `mm39`,
 |-----------|---------------|---------|
 | BAM / BED / peak files | `/data` | Input sequencing data |
 | Output directory | `/out` | Results, motifs, annotations |
-| Genome data (volume) | `/opt/homer/data` | HOMER genome databases |
+| Genome data (volume, optional) | `/opt/homer/data` | Additional HOMER genomes beyond hg38/mm10 |
 
 ## Image Tags
 
