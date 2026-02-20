@@ -1,0 +1,17 @@
+name: meme
+description: >
+  MEME Suite is a collection of tools for motif-based sequence analysis
+  including motif discovery, scanning, enrichment, and comparison in
+  DNA, RNA, and protein sequences.
+upstream: https://meme-suite.org/meme/
+version: "5.5.9"
+license: "SEE meme-suite.org"
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: meme
+    org.opencontainers.image.description: "MEME Suite – motif-based sequence analysis tools"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: "SEE meme-suite.org"

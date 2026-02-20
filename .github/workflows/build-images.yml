@@ -50,6 +50,12 @@ jobs:
               - 'tools/rgreat/**'
             homer:
               - 'tools/homer/**'
+            telomerehunter:
+              - 'tools/telomerehunter/**'
+            telseq:
+              - 'tools/telseq/**'
+            meme:
+              - 'tools/meme/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -97,10 +103,19 @@ jobs:
             if [[ "${{ steps.filter.outputs.homer }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"homer\"},"
             fi
+            if [[ "${{ steps.filter.outputs.telomerehunter }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"telomerehunter\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.telseq }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"telseq\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.meme }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"meme\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then
