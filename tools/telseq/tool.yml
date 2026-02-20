@@ -1,0 +1,16 @@
+name: telseq
+description: >
+  TelSeq estimates telomere length from whole-genome sequencing (WGS)
+  BAM files by counting telomeric reads and normalising for GC-content bias.
+upstream: https://github.com/zd1/telseq
+version: "0.0.2"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: telseq
+    org.opencontainers.image.description: "TelSeq – telomere length estimation from WGS data"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later
