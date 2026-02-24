@@ -57,6 +57,7 @@ RUN apt-get update && \
         zlib1g \
         ghostscript \
         libxml2 \
+        procps \
         libxslt1.1 \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
@@ -74,4 +75,4 @@ USER biouser
 
 WORKDIR /data
 
-CMD ["meme", "-version"]
+CMD ["run_meme.sh", ""]
