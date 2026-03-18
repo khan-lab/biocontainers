@@ -56,6 +56,30 @@ jobs:
               - 'tools/telseq/**'
             meme:
               - 'tools/meme/**'
+            cnvkit:
+              - 'tools/cnvkit/**'
+            gridss:
+              - 'tools/gridss/**'
+            svaba:
+              - 'tools/svaba/**'
+            shatterseek:
+              - 'tools/shatterseek/**'
+            mutect2:
+              - 'tools/mutect2/**'
+            strelka2:
+              - 'tools/strelka2/**'
+            wisecondorx:
+              - 'tools/wisecondorx/**'
+            bwa:
+              - 'tools/bwa/**'
+            star:
+              - 'tools/star/**'
+            intervene:
+              - 'tools/intervene/**'
+            unibind-enrich:
+              - 'tools/unibind-enrich/**'
+            remapennrich:
+              - 'tools/remapennrich/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -112,10 +136,46 @@ jobs:
             if [[ "${{ steps.filter.outputs.meme }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"meme\"},"
             fi
+            if [[ "${{ steps.filter.outputs.cnvkit }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"cnvkit\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.gridss }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"gridss\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.svaba }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"svaba\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.shatterseek }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"shatterseek\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.mutect2 }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"mutect2\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.strelka2 }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"strelka2\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.wisecondorx }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"wisecondorx\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.bwa }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"bwa\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.star }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"star\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.intervene }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"intervene\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.unibind-enrich }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"unibind-enrich\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.remapennrich }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"remapennrich\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then

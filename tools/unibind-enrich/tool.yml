@@ -1,0 +1,19 @@
+name: unibind-enrich
+description: >
+  UniBind Enrich performs transcription factor binding site enrichment analysis
+  against the UniBind LOLA database. Supports three analysis modes: enrichment
+  with a background region set (oneSetBg), differential enrichment between two
+  region sets (twoSets), and enrichment without an explicit background
+  (oneSetNoBg). LOLA database files must be mounted at /data/lola at runtime.
+upstream: https://bitbucket.org/CBGR/unibind_enrichment
+version: "git-main"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: unibind-enrich
+    org.opencontainers.image.description: "UniBind Enrich – TF binding site enrichment analysis using the UniBind LOLA database"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later
