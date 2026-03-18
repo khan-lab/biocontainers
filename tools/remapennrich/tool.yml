@@ -1,0 +1,19 @@
+name: remapennrich
+description: >
+  ReMapEnrich performs genomic region enrichment analysis against the ReMap
+  transcription factor binding catalog. Given a BED file of query regions,
+  it identifies TFs whose binding sites are significantly enriched, returning
+  p-values and effect sizes. Supports hg19, hg38, mm10, dm6, ce11, and rn5
+  assemblies. ReMap catalogs are downloaded at runtime via R.
+upstream: https://github.com/remap-cisreg/ReMapEnrich
+version: "0.99.0"
+license: AGPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: remapennrich
+    org.opencontainers.image.description: "ReMapEnrich – genomic region enrichment against the ReMap TF binding catalog"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: AGPL-3.0-or-later
