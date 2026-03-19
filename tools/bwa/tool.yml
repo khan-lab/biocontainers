@@ -1,0 +1,17 @@
+name: bwa
+description: >
+  BWA (Burrows-Wheeler Aligner) is a fast and accurate short-read DNA aligner.
+  bwa mem is the recommended algorithm for reads ≥70 bp against a large reference
+  genome such as the human genome.
+upstream: https://github.com/lh3/bwa
+version: "0.7.19"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: bwa
+    org.opencontainers.image.description: "BWA – Burrows-Wheeler Aligner for short-read DNA alignment"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later
