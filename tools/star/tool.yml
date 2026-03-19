@@ -1,0 +1,17 @@
+name: star
+description: >
+  STAR (Spliced Transcripts Alignment to a Reference) is an ultrafast splice-aware
+  RNA-seq aligner. It supports two-pass alignment, gene count quantification, and
+  outputs sorted BAM files ready for downstream tools such as featureCounts or DESeq2.
+upstream: https://github.com/alexdobin/STAR
+version: "2.7.11b"
+license: MIT
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: star
+    org.opencontainers.image.description: "STAR – Spliced Transcripts Alignment to a Reference (RNA-seq)"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: MIT
