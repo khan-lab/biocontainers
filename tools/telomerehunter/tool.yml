@@ -4,7 +4,7 @@ description: >
   whole-genome sequencing (WGS) data. It extracts and analyses
   telomeric reads from tumor and/or control BAM files.
 upstream: https://github.com/linasieverling/TelomereHunter
-version: "1.1.0"
+version: "1.0.4"
 license: GPL-3.0-or-later
 maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
 

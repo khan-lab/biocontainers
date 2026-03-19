@@ -14,6 +14,7 @@ RUN apt-get update && \
         libtool \
         pkg-config \
         zlib1g-dev \
+        bamtools \
         libbamtools-dev \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
@@ -21,7 +22,7 @@ RUN apt-get update && \
 RUN git clone --depth 1 https://github.com/zd1/telseq.git /tmp/telseq && \
     cd /tmp/telseq/src && \
     ./autogen.sh && \
-    ./configure && \
+    ./configure --with-bamtools=/usr && \
     make && \
     cp Telseq/telseq /usr/local/bin/telseq
 
@@ -40,7 +41,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        libbamtools2.5.0 \
+        bamtools \
         zlib1g \
         ca-certificates && \
     rm -rf /var/lib/apt/lists/*
