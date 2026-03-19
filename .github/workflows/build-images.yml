@@ -80,6 +80,16 @@ jobs:
               - 'tools/unibind-enrich/**'
             remapennrich:
               - 'tools/remapennrich/**'
+            shallowhrd:
+              - 'tools/shallowhrd/**'
+            vcf2maf:
+              - 'tools/vcf2maf/**'
+            gistic2:
+              - 'tools/gistic2/**'
+            msisensor:
+              - 'tools/msisensor/**'
+            mosdepth:
+              - 'tools/mosdepth/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -172,10 +182,25 @@ jobs:
             if [[ "${{ steps.filter.outputs.remapennrich }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"remapennrich\"},"
             fi
+            if [[ "${{ steps.filter.outputs.shallowhrd }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"shallowhrd\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.vcf2maf }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"vcf2maf\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.gistic2 }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"gistic2\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.msisensor }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"msisensor\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.mosdepth }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"mosdepth\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then
@@ -235,7 +260,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: tools/${{ matrix.tool }}
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.tool == 'gistic2' && 'linux/amd64' || 'linux/amd64,linux/arm64' }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

@@ -1,0 +1,19 @@
+name: shallowhrd
+description: >
+  shallowHRD detects homologous recombination deficiency (HRD) from shallow
+  whole-genome sequencing (≥0.3x coverage) copy number ratio files. It applies
+  statistical segmentation and genome-wide HRD scoring. Supports hg19 and hg38.
+  Input is a ratio file from ControlFREEC or QDNAseq; cytoband reference files
+  are bundled in the image.
+upstream: https://github.com/aeeckhou/shallowHRD
+version: "git-main"
+license: CC-BY-4.0
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: shallowhrd
+    org.opencontainers.image.description: "shallowHRD – homologous recombination deficiency detection from shallow WGS"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: CC-BY-4.0
