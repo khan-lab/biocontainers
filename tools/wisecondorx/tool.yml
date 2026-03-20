@@ -1,0 +1,17 @@
+name: wisecondorx
+description: >
+  WisecondorX detects copy number alterations from shallow whole-genome
+  sequencing data using a within-sample segmentation approach. Supports
+  germline and somatic CNA calling including NIPT applications.
+upstream: https://github.com/CenterForMedicalGeneticsGhent/WisecondorX
+version: "git-main"
+license: CC-BY-NC-SA-4.0
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: wisecondorx
+    org.opencontainers.image.description: "WisecondorX – copy number detection from shallow WGS"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: CC-BY-NC-SA-4.0
