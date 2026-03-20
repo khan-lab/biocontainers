@@ -1,0 +1,17 @@
+name: gridss
+description: >
+  GRIDSS (Genomic Rearrangement IDentification Software Suite) detects
+  structural variants including translocations, inversions, duplications,
+  and indels from paired-end whole-genome sequencing data.
+upstream: https://github.com/Illumina/GRIDSS
+version: "2.13.2"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: gridss
+    org.opencontainers.image.description: "GRIDSS – genome rearrangement identification and structural variant calling"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later
