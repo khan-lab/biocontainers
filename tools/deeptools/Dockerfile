@@ -15,10 +15,14 @@ RUN apt-get update && \
         python3-pip \
         python3-setuptools \
         python3-wheel \
+        python3-dev \
+        gcc \
+        g++ \
         && \
     rm -rf /var/lib/apt/lists/*
 
 # ---- Install deepTools ------------------------------------------------------
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip3 install --no-cache-dir deeptools==${DEEPTOOLS_VERSION}
 
 # ---- Wrapper script ----------------------------------------------------------

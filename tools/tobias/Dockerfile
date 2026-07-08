@@ -30,8 +30,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # ---- Install TOBIAS ----------------------------------------------------------
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip3 install --no-cache-dir \
         cython \
+        pyBigWig==0.3.18 \
         tobias==${TOBIAS_VERSION}
 
 # ---- Wrapper script ----------------------------------------------------------
