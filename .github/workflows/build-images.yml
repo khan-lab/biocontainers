@@ -90,6 +90,8 @@ jobs:
               - 'tools/msisensor/**'
             mosdepth:
               - 'tools/mosdepth/**'
+            oncodrivefml:
+              - 'tools/oncodrivefml/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -197,10 +199,13 @@ jobs:
             if [[ "${{ steps.filter.outputs.mosdepth }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"mosdepth\"},"
             fi
+            if [[ "${{ steps.filter.outputs.oncodrivefml }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"oncodrivefml\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},{"tool":"oncodrivefml"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then

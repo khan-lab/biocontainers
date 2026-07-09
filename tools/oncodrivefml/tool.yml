@@ -1,0 +1,18 @@
+name: oncodrivefml
+description: >
+  OncodriveFML detects signals of positive selection in somatic mutations
+  (coding and noncoding) by aggregating the functional impact of mutations
+  (e.g. CADD scores) across genomic elements to nominate cancer driver
+  elements.
+upstream: https://github.com/bbglab/oncodrivefml
+version: "2.5.0"
+license: AGPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: python:3.11-slim
+  labels:
+    org.opencontainers.image.title: oncodrivefml
+    org.opencontainers.image.description: "OncodriveFML – positive selection in coding and noncoding somatic mutations"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: AGPL-3.0-or-later

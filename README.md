@@ -20,6 +20,7 @@ Images are built via GitHub Actions and pushed to the GitHub Container Registry 
 | [HOMER](tools/homer/) | Motif discovery and ChIP-seq analysis | `ghcr.io/khan-lab/homer` |
 | [TelomereHunter](tools/telomerehunter/) | Telomere content estimation from WGS | `ghcr.io/khan-lab/telomerehunter` |
 | [TelSeq](tools/telseq/) | Telomere length estimation from WGS | `ghcr.io/khan-lab/telseq` |
+| [OncodriveFML](tools/oncodrivefml/) | Positive selection in coding/noncoding somatic mutations | `ghcr.io/khan-lab/oncodrivefml` |
 
 ## Pulling Images
 
@@ -35,6 +36,7 @@ docker pull ghcr.io/khan-lab/rgreat:latest
 docker pull ghcr.io/khan-lab/homer:latest
 docker pull ghcr.io/khan-lab/telomerehunter:latest
 docker pull ghcr.io/khan-lab/telseq:latest
+docker pull ghcr.io/khan-lab/oncodrivefml:latest
 ```
 
 ## Image Tags
