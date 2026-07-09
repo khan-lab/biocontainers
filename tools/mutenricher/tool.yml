@@ -1,0 +1,18 @@
+name: mutenricher
+description: >
+  MutEnricher identifies enrichment of somatic mutations in coding genes and
+  noncoding regions (promoters, enhancers, etc.) from cohorts of WGS variant
+  calls, using coding and noncoding statistical models with covariate/hotspot
+  corrections.
+upstream: https://github.com/asoltis/MutEnricher
+version: "1.3.3"
+license: MIT
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: python:3.7.7
+  labels:
+    org.opencontainers.image.title: mutenricher
+    org.opencontainers.image.description: "MutEnricher – somatic coding and noncoding mutation enrichment analysis"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: MIT

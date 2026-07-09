@@ -1,0 +1,18 @@
+name: mutspot
+description: >
+  MutSpot detects recurrently mutated hotspot regions in the noncoding genome
+  from cohorts of somatic mutation calls, fitting a background mutation-rate
+  model from sequence and epigenomic features (LASSO-selected) and testing for
+  local mutation recurrence.
+upstream: https://github.com/skandlab/MutSpot
+version: "git-master"
+license: NOASSERTION
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: rocker/r-ver:3.6.3
+  labels:
+    org.opencontainers.image.title: mutspot
+    org.opencontainers.image.description: "MutSpot – recurrent noncoding mutation hotspot detection"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: NOASSERTION

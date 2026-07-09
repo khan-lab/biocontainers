@@ -21,6 +21,15 @@ Images are built via GitHub Actions and pushed to the GitHub Container Registry 
 | [TelomereHunter](tools/telomerehunter/) | Telomere content estimation from WGS | `ghcr.io/khan-lab/telomerehunter` |
 | [TelSeq](tools/telseq/) | Telomere length estimation from WGS | `ghcr.io/khan-lab/telseq` |
 | [OncodriveFML](tools/oncodrivefml/) | Positive selection in coding/noncoding somatic mutations | `ghcr.io/khan-lab/oncodrivefml` |
+| [MutEnricher](tools/mutenricher/) | Somatic coding/noncoding mutation enrichment | `ghcr.io/khan-lab/mutenricher` |
+| [LARVA](tools/larva/) | Recurrent-variant analysis in noncoding annotations | `ghcr.io/khan-lab/larva` |
+| [ActiveDriverWGS](tools/activedriverwgs/) | Coding/noncoding cancer driver discovery | `ghcr.io/khan-lab/activedriverwgs` |
+| [fishHook](tools/fishhook/) | Mutation enrichment in genomic intervals | `ghcr.io/khan-lab/fishhook` |
+| [ncdDetect2](tools/ncddetect/) | Noncoding cancer driver detection | `ghcr.io/khan-lab/ncddetect` |
+| [MutSpot](tools/mutspot/) | Recurrent noncoding mutation hotspot detection | `ghcr.io/khan-lab/mutspot` |
+| [DriverPower](tools/driverpower/) | Coding/noncoding driver detection (burden + impact) | `ghcr.io/khan-lab/driverpower` |
+| [DIGDriver](tools/digdriver/) | Mutation-rate model for cancer driver detection | `ghcr.io/khan-lab/digdriver` |
+| [FunSeq2](tools/funseq2/) | Functional annotation of noncoding somatic variants | `ghcr.io/khan-lab/funseq2` |
 
 ## Pulling Images
 
@@ -37,6 +46,15 @@ docker pull ghcr.io/khan-lab/homer:latest
 docker pull ghcr.io/khan-lab/telomerehunter:latest
 docker pull ghcr.io/khan-lab/telseq:latest
 docker pull ghcr.io/khan-lab/oncodrivefml:latest
+docker pull ghcr.io/khan-lab/mutenricher:latest
+docker pull ghcr.io/khan-lab/larva:latest
+docker pull ghcr.io/khan-lab/activedriverwgs:latest
+docker pull ghcr.io/khan-lab/fishhook:latest
+docker pull ghcr.io/khan-lab/ncddetect:latest
+docker pull ghcr.io/khan-lab/mutspot:latest
+docker pull ghcr.io/khan-lab/driverpower:latest
+docker pull ghcr.io/khan-lab/digdriver:latest
+docker pull ghcr.io/khan-lab/funseq2:latest
 ```
 
 ## Image Tags

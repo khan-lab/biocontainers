@@ -1,0 +1,18 @@
+name: funseq2
+description: >
+  FunSeq2 annotates and prioritises noncoding somatic variants by integrating
+  large-scale functional genomics annotations (conservation, TF motifs and
+  binding, enhancer-gene links, network centrality) into a weighted scoring
+  scheme to flag candidate noncoding driver mutations.
+upstream: https://github.com/gersteinlab/FunSeq2
+version: "git-master"
+license: CC0-1.0
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: mambaorg/micromamba:1.5.8
+  labels:
+    org.opencontainers.image.title: funseq2
+    org.opencontainers.image.description: "FunSeq2 – functional annotation of noncoding somatic variants"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: CC0-1.0

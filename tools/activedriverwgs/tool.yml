@@ -1,0 +1,18 @@
+name: activedriverwgs
+description: >
+  ActiveDriverWGS detects cancer driver elements in coding and noncoding
+  regions of the genome by testing user-supplied elements for an enrichment
+  of somatic mutations relative to a local background, accounting for
+  trinucleotide mutation signatures.
+upstream: https://github.com/reimandlab/ActiveDriverWGSR
+version: "1.2.1"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: bioconductor/bioconductor_docker:RELEASE_3_21
+  labels:
+    org.opencontainers.image.title: activedriverwgs
+    org.opencontainers.image.description: "ActiveDriverWGS – driver discovery in coding and noncoding cancer genomes"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later

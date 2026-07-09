@@ -1,0 +1,17 @@
+name: fishhook
+description: >
+  fishHook detects enrichment or depletion of somatic mutations in arbitrary
+  genomic intervals (genes, elements, tiles) relative to a covariate-corrected
+  background model, for coding and noncoding cancer driver discovery.
+upstream: https://github.com/mskilab-org/fishHook
+version: "git-master"
+license: GPL-2.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: bioconductor/bioconductor_docker:RELEASE_3_21
+  labels:
+    org.opencontainers.image.title: fishhook
+    org.opencontainers.image.description: "fishHook – enrichment of somatic mutations in genomic intervals"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-2.0-or-later
