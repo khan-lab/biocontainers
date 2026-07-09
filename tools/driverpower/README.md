@@ -8,8 +8,8 @@ excess mutational burden.
 - **Upstream:** https://github.com/smshuai/DriverPower (v1.0.2, 2018)
 - **License:** GPL-3.0-or-later
 - **Image:** `ghcr.io/khan-lab/driverpower`
-- **Platform:** `linux/amd64` only (installed from the author's `smshuai` conda channel,
-  which has no arm64 build; depends on a pinned 2018-era scientific stack).
+- **Platform:** `linux/amd64` only (pinned 2018-era scientific stack — scikit-learn 0.19.2
+  etc. — whose wheels are amd64-only). Installed from PyPI on a Python 3.7 base.
 
 ## Pull
 

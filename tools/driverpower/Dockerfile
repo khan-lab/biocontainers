@@ -1,7 +1,12 @@
-# DriverPower is only distributed as a conda package on the author's personal
-# channel (smshuai), built for linux-64/osx-64 with a pinned 2018-era scientific
-# stack. This image is therefore amd64-only (see the platform exception).
-FROM mambaorg/micromamba:1.5.8
+# DriverPower targets a Python 3.7 / 2018-era scientific stack (scikit-learn
+# 0.19.2, xgboost, ...). Those pinned versions only ship linux/amd64 (cp37) wheels,
+# so this image is amd64-only (see the platform exception in build-images.yml).
+#
+# Installed from PyPI rather than the author's personal conda channel: the conda
+# build pins scikit-learn 0.19.2 to a python 3.7 build that does not exist on
+# bioconda/conda-forge (unsolvable), whereas the exact-version wheels do exist on
+# PyPI. Deps are pinned explicitly, then DriverPower is installed with --no-deps.
+FROM python:3.7
 
 ARG DRIVERPOWER_VERSION=1.0.2
 
@@ -11,14 +16,25 @@ LABEL org.opencontainers.image.title="driverpower" \
       org.opencontainers.image.source="https://github.com/khan-lab/biocontainers" \
       org.opencontainers.image.licenses="GPL-3.0-or-later"
 
-USER root
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN micromamba install -y -n base \
-        -c smshuai -c bioconda -c conda-forge \
-        "driverpower=${DRIVERPOWER_VERSION}" && \
-    micromamba clean -a -y
+# bedtools is the runtime dependency behind pybedtools.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends bedtools && \
+    rm -rf /var/lib/apt/lists/*
 
-ENV PATH="/opt/conda/bin:${PATH}"
+# Pinned py37-era scientific stack (all have cp37 wheels), then DriverPower itself.
+RUN pip install --no-cache-dir \
+        numpy==1.16.6 \
+        scipy==1.2.3 \
+        pandas==0.24.2 \
+        scikit-learn==0.19.2 \
+        statsmodels==0.10.2 \
+        patsy==0.5.2 \
+        xgboost==0.90 \
+        tables==3.5.2 \
+        pybedtools==0.8.1 && \
+    pip install --no-cache-dir --no-deps "DriverPower==${DRIVERPOWER_VERSION}"
 
 COPY bin/run_driverpower.sh /usr/local/bin/run_driverpower.sh
 RUN chmod +x /usr/local/bin/run_driverpower.sh

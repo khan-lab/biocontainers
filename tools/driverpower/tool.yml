@@ -10,7 +10,7 @@ license: GPL-3.0-or-later
 maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
 
 build:
-  base_image: mambaorg/micromamba:1.5.8
+  base_image: python:3.7
   labels:
     org.opencontainers.image.title: driverpower
     org.opencontainers.image.description: "DriverPower – coding/noncoding cancer driver detection"
