@@ -1,0 +1,18 @@
+name: ncddetect
+description: >
+  ncdDetect2 detects candidate noncoding cancer driver elements by comparing
+  the observed mutational impact in a region against a null distribution from a
+  per-site, per-sample multinomial mutation-rate model (replication timing,
+  expression, sequence context).
+upstream: https://github.com/TobiasMadsen/ncdDetect2
+version: "git-master"
+license: NOASSERTION
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: rocker/r-ver:4.4.2
+  labels:
+    org.opencontainers.image.title: ncddetect
+    org.opencontainers.image.description: "ncdDetect2 – noncoding cancer driver detection"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: NOASSERTION

@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG TELOMEREHUNTER_VERSION=1.1.0
+ARG TELOMEREHUNTER_VERSION=1.0.4
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -28,7 +28,7 @@ RUN pip install --no-cache-dir \
 # ---------- Runtime stage ----------------------------------------------------
 FROM debian:bookworm-slim
 
-ARG TELOMEREHUNTER_VERSION=1.1.0
+ARG TELOMEREHUNTER_VERSION=1.0.4
 
 LABEL org.opencontainers.image.title="telomerehunter" \
       org.opencontainers.image.description="TelomereHunter – telomere content estimation from WGS data" \

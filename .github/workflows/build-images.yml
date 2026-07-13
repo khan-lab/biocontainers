@@ -90,6 +90,26 @@ jobs:
               - 'tools/msisensor/**'
             mosdepth:
               - 'tools/mosdepth/**'
+            oncodrivefml:
+              - 'tools/oncodrivefml/**'
+            mutenricher:
+              - 'tools/mutenricher/**'
+            larva:
+              - 'tools/larva/**'
+            activedriverwgs:
+              - 'tools/activedriverwgs/**'
+            fishhook:
+              - 'tools/fishhook/**'
+            ncddetect:
+              - 'tools/ncddetect/**'
+            mutspot:
+              - 'tools/mutspot/**'
+            driverpower:
+              - 'tools/driverpower/**'
+            digdriver:
+              - 'tools/digdriver/**'
+            funseq2:
+              - 'tools/funseq2/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -197,10 +217,40 @@ jobs:
             if [[ "${{ steps.filter.outputs.mosdepth }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"mosdepth\"},"
             fi
+            if [[ "${{ steps.filter.outputs.oncodrivefml }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"oncodrivefml\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.mutenricher }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"mutenricher\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.larva }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"larva\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.activedriverwgs }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"activedriverwgs\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.fishhook }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"fishhook\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.ncddetect }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"ncddetect\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.mutspot }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"mutspot\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.driverpower }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"driverpower\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.digdriver }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"digdriver\"},"
+            fi
+            if [[ "${{ steps.filter.outputs.funseq2 }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"funseq2\"},"
+            fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
-              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},{"tool":"oncodrivefml"},{"tool":"mutenricher"},{"tool":"larva"},{"tool":"activedriverwgs"},{"tool":"fishhook"},{"tool":"ncddetect"},{"tool":"mutspot"},{"tool":"driverpower"},{"tool":"digdriver"},{"tool":"funseq2"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then
@@ -260,7 +310,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: tools/${{ matrix.tool }}
-          platforms: ${{ matrix.tool == 'gistic2' && 'linux/amd64' || 'linux/amd64,linux/arm64' }}
+          platforms: ${{ contains(fromJSON('["gistic2","mutenricher","larva","mutspot","driverpower","digdriver"]'), matrix.tool) && 'linux/amd64' || 'linux/amd64,linux/arm64' }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

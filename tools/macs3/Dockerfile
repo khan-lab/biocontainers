@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.title="macs3" \
       org.opencontainers.image.source="https://github.com/khan-lab/biocontainers" \
       org.opencontainers.image.licenses="BSD-3-Clause"
 
-ARG MACS3_VERSION=3.0.3
+ARG MACS3_VERSION=3.0.4
 ARG DEBIAN_FRONTEND=noninteractive
 
 # ---- System dependencies (includes build deps for C extensions) -------------
@@ -26,6 +26,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # ---- Install MACS3 ----------------------------------------------------------
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip3 install --no-cache-dir macs3==${MACS3_VERSION}
 
 # ---- Wrapper script ----------------------------------------------------------

@@ -1,0 +1,18 @@
+name: larva
+description: >
+  LARVA (Large-scale Analysis of Recurrent Variants in Annotations) identifies
+  noncoding regions with a significant excess of somatic mutations across a
+  cancer cohort, using a beta-binomial model of mutation burden corrected for
+  DNA replication timing.
+upstream: https://github.com/gersteinlab/LARVA
+version: "2.0"
+license: NOASSERTION
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: larva
+    org.opencontainers.image.description: "LARVA – recurrent variant analysis in noncoding annotations"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: NOASSERTION

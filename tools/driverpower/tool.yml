@@ -1,0 +1,18 @@
+name: driverpower
+description: >
+  DriverPower identifies coding and noncoding cancer driver elements by
+  combining functional impact scores and background mutation-rate modelling
+  (regularised regression over genomic covariates) to test genomic elements for
+  an excess mutational burden.
+upstream: https://github.com/smshuai/DriverPower
+version: "1.0.2"
+license: GPL-3.0-or-later
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: python:3.7
+  labels:
+    org.opencontainers.image.title: driverpower
+    org.opencontainers.image.description: "DriverPower – coding/noncoding cancer driver detection"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: GPL-3.0-or-later

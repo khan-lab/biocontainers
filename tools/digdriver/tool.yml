@@ -1,0 +1,18 @@
+name: digdriver
+description: >
+  Dig (DIGDriver) detects coding and noncoding cancer driver elements using a
+  deep-learning model of the genome-wide neutral mutation rate to derive
+  element-level expected mutation counts, then tests observed mutations for
+  significant excess.
+upstream: https://github.com/maxwellsh/DIGDriver
+version: "0.1"
+license: BSD-3-Clause
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: mambaorg/micromamba:1.5.8
+  labels:
+    org.opencontainers.image.title: digdriver
+    org.opencontainers.image.description: "Dig / DIGDriver – mutation-rate model for cancer driver detection"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: BSD-3-Clause
