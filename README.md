@@ -83,71 +83,67 @@ Pull requests build images but do **not** push them.
    ```
 4. GitHub Actions will build and push the image tagged as `X.Y.Z` and `latest`.
 
+## Local Development
+
+Use `scripts/build-test.sh` to build and smoke-test images locally before pushing.
+
+### Build changed tools (auto-detect via git)
+
+```bash
+bash scripts/build-test.sh
+```
+
+Detects tools with uncommitted changes or untracked new tool directories compared to
+the last commit. To compare against a different base ref:
+
+```bash
+bash scripts/build-test.sh --base main
+```
+
+### Build and test a specific tool
+
+```bash
+bash scripts/build-test.sh -t fastqc
+bash scripts/build-test.sh -t cnvkit -t strelka2   # multiple tools
+```
+
+### Build all tools
+
+```bash
+bash scripts/build-test.sh --all
+```
+
+### Build only (skip smoke test)
+
+```bash
+bash scripts/build-test.sh -t homer --no-test
+```
+
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `-t/--tool TOOL` | Build/test a specific tool (repeatable) |
+| `-a/--all` | Build/test all tools |
+| `--base REF` | Git ref for change detection (default: `HEAD`) |
+| `--no-test` | Build only, skip smoke test |
+| `--platform PLATFORM` | Docker platform (default: auto-detected from host) |
+
+Built images are tagged `ghcr.io/khan-lab/<tool>:local`.
+
 ## Repository Layout
 
 ```
 .
 ├── .github/workflows/build-images.yml   # CI/CD pipeline
+├── scripts/
+│   └── build-test.sh                    # Local build and smoke-test script
 ├── tools/
-│   ├── fastqc/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_fastqc.sh
-│   ├── rose/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_rose.sh
-│   ├── qdnaseq/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/
-│   │       ├── run_qdnaseq.R
-│   │       └── run_qdnaseq.sh
-│   ├── pyjaspar/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_pyjaspar.sh
-│   ├── deeptools/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_deeptools.sh
-│   ├── macs3/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_macs3.sh
-│   ├── tobias/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_tobias.sh
-│   ├── rgreat/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/
-│   │       ├── run_rgreat.R
-│   │       └── run_rgreat.sh
-│   ├── homer/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_homer.sh
-│   ├── telomerehunter/
-│   │   ├── Dockerfile
-│   │   ├── README.md
-│   │   ├── tool.yml
-│   │   └── bin/run_telomerehunter.sh
-│   └── telseq/
-│       ├── Dockerfile
-│       ├── README.md
-│       ├── tool.yml
-│       └── bin/run_telseq.sh
+│   └── <tool>/                          # One directory per tool
+│       ├── Dockerfile                   # Multi-stage container definition
+│       ├── README.md                    # Usage and mount-point docs
+│       ├── tool.yml                     # Metadata (name, version, license)
+│       └── bin/                         # Wrapper scripts (run_<tool>.sh)
 ├── .editorconfig
 ├── .gitignore
 ├── LICENSE

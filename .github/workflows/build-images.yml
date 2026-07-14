@@ -110,6 +110,8 @@ jobs:
               - 'tools/digdriver/**'
             funseq2:
               - 'tools/funseq2/**'
+            immunelens:
+              - 'tools/immunelens/**'
 
       # --- Build the matrix JSON --------------------------------------------
       - name: Build matrix
@@ -246,11 +248,14 @@ jobs:
             fi
             if [[ "${{ steps.filter.outputs.funseq2 }}" == "true" ]]; then
               INCLUDE="${INCLUDE}{\"tool\":\"funseq2\"},"
+            if [[ "${{ steps.filter.outputs.immunelens }}" == "true" ]]; then
+              INCLUDE="${INCLUDE}{\"tool\":\"immunelens\"},"
             fi
 
             # workflow_dispatch with no filter results: build all
             if [[ "${{ github.event_name }}" == "workflow_dispatch" && -z "$INCLUDE" ]]; then
               INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},{"tool":"oncodrivefml"},{"tool":"mutenricher"},{"tool":"larva"},{"tool":"activedriverwgs"},{"tool":"fishhook"},{"tool":"ncddetect"},{"tool":"mutspot"},{"tool":"driverpower"},{"tool":"digdriver"},{"tool":"funseq2"},'
+              INCLUDE='{"tool":"fastqc"},{"tool":"rose"},{"tool":"qdnaseq"},{"tool":"pyjaspar"},{"tool":"deeptools"},{"tool":"macs3"},{"tool":"tobias"},{"tool":"rgreat"},{"tool":"homer"},{"tool":"telomerehunter"},{"tool":"telseq"},{"tool":"meme"},{"tool":"cnvkit"},{"tool":"gridss"},{"tool":"svaba"},{"tool":"shatterseek"},{"tool":"mutect2"},{"tool":"strelka2"},{"tool":"wisecondorx"},{"tool":"bwa"},{"tool":"star"},{"tool":"intervene"},{"tool":"unibind-enrich"},{"tool":"remapennrich"},{"tool":"shallowhrd"},{"tool":"vcf2maf"},{"tool":"gistic2"},{"tool":"msisensor"},{"tool":"mosdepth"},{"tool":"immunelens"},'
             fi
 
             if [[ -n "$INCLUDE" ]]; then
