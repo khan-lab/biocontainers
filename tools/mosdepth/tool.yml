@@ -1,0 +1,18 @@
+name: mosdepth
+description: >
+  mosdepth calculates sequencing depth from BAM and CRAM files rapidly using
+  a streaming algorithm. Supports per-base depth, windowed depth, and
+  region-based depth from a BED file. Outputs compressed BED files and a
+  cumulative coverage distribution summary. Supports WGS, WES, and panel data.
+upstream: https://github.com/brentp/mosdepth
+version: "0.3.12"
+license: MIT
+maintainer: Khan Lab <khan.lab@mbzuai.ac.ae>
+
+build:
+  base_image: debian:bookworm-slim
+  labels:
+    org.opencontainers.image.title: mosdepth
+    org.opencontainers.image.description: "mosdepth – fast BAM/CRAM depth calculation"
+    org.opencontainers.image.source: https://github.com/khan-lab/biocontainers
+    org.opencontainers.image.licenses: MIT
